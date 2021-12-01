@@ -1,41 +1,54 @@
 import random
 import csv
+import pandas as pd
 
-with open('Gifts.csv','w+', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow(["Gift", "Amount", "Weight"])
-    noOfGifts=int(input("Please enter the number of Gifts !! "))
-    for i in range(noOfGifts) :
-        print(" Gift :",i+1)
-        gift = input("Enter Gift Name : ")
-        amount = int(input("Enter the Number of Gift : "))
-        weight = int(input("Weight of the Gift : "))
-        writer.writerow([gift, amount, weight])
-    while (1) :
-        Decision = input("Add Gift(A) or Spin the wheel(S)  \n Choose A or S ")
 
+df = pd.read_csv("Gifts.csv")
+print(df)
+
+while (1) :
+        Decision = input("Add Gift(A) or Spin the wheel(S)  \n Choose A or S : ")
+        flag = 0
         if Decision == "A" :
             gift = input("Enter Gift Name ")
             amount = input("Enter the Number of Gift : ")
             weight = input("Weight of the Gift : ")
-            writer.writerow([gift, amount, weight])
+            for i in range(len(df)) :
+                if df['Gift'][i] == gift :
+                    df.loc[i,'Amount'] = amount
+                    df.loc[i,'Weight'] = weight
+                    flag=1
+                
+
+            if flag==0 :
+                df.append([len(df)+1, gift,amount,weight]) 
 
         elif Decision == "S" :
-            rand = random.Random(0,100)
-            if rand > 80 :
+            rand = random.randint(0,100)
+
+            if rand > 95 :
                 print("No Luck !!")
                 break
-            elif rand >70 :
+            elif rand > 90 :
                 print("try again")
-            
-            
-            total = 0
-            for row in csv.reader(file):
-                for col in row[2]:
-                    total += int(col)
 
-        elif Decision == "E" :
+            else :
+                prob = 0
+                total = 0
+                x=0
+                print ("Check point 1")
+                for col in df["Weight"]:
+                    total += int(col)
+                        
+                print(total)
+               
+                for col in df["Weight"]:
+                        x = int(col)
+                        prob = x/total
+                        print(prob)
             break
 
         else :
-            print("Input is Wrong ! Choose Between A/ S / E")
+            print("Input is Wrong ! Choose Between A / S ")
+
+df.to_csv('Gifts.csv',index= False)
