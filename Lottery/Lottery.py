@@ -55,7 +55,7 @@ while (1) :
                 giftDict = dict(zip(k,giftlist)) #creating a list to hold the gift and the probability
                 
                 #giftDict = dict(giftDict)
-                rand = random.randint(0,100)/100 #getting a random number between 100
+                rand = random.randint(0,1000)/1000 #getting a random number between 100
                 gift = 0
                 for i in sorted(giftDict):
                     if rand < i :
