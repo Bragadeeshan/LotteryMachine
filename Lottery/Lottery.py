@@ -72,8 +72,8 @@ while (1) :
                          df.loc[i,'Amount'] = df.loc[i,'Amount'] - 1 #deducting the gift from the dataframe
                          if  df.loc[i,'Amount'] == 0 :
                              data = data.drop(index = gift, axis=0) #if the number of gifts go to zero drop it 
-
-            break
+                break
+            
 
         else :
             print("Input is Wrong ! Choose Between A / S ")
