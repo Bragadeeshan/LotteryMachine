@@ -33,7 +33,7 @@ while (1) :
             if rand > 95 : # if the random number is above 95 the player loses
                 print("No Luck !!")
                 break
-            elif rand > 90 : #if the number is between 95 and 90 player can try again
+            elif rand > 60 : #if the number is between 95 and 90 player can try again
                 print("try again")
 
             else :
@@ -57,8 +57,10 @@ while (1) :
                 #giftDict = dict(giftDict)
                 rand = random.randint(0,1000)/1000 #getting a random number between 100
                 gift = 0
+                j=0
                 for i in sorted(giftDict):
-                    if rand < i :
+                    j=j+i
+                    if rand < j :
                         print("Congratulations You have won ", giftDict[i])
                         gift = giftDict[i]
                         break
